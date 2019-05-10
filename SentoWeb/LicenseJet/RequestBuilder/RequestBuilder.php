@@ -25,6 +25,10 @@ Abstract Class RequestBuilder {
         $this->collection = $collection;
     }
 
+    /**
+     * @param int $page
+     * @return static
+     */
     public function page(int $page) : RequestBuilder
     {
         $this->page = $page;
@@ -32,6 +36,10 @@ Abstract Class RequestBuilder {
         return $this;
     }
 
+    /**
+     * @param int|null $limit
+     * @return static
+     */
     public function limit(?int $limit) : RequestBuilder
     {
         $this->limit = $limit;
@@ -39,7 +47,7 @@ Abstract Class RequestBuilder {
         return $this;
     }
 
-    public function getParams() : array
+    protected function getParams() : array
     {
         return [
             'limit' => $this->limit,

@@ -9,26 +9,31 @@ Class CollectionRequestBuilder extends RequestBuilder {
      * @param $response
      * @return BaseCollection
      */
-    function get(array $params = [], &$response = null)
+    function get(array $params = [], &$response = null) : BaseCollection
     {
 
         $response = $this->endpoint->get($this->uri,
             array_merge($params, $this->getParams())
         );
 
-        if (!$response->isSuccessful()) {
+        if (!$response->isSuccessful())
+        {
             return $this->collection;
         }
 
         $response_contents = $response->getContents();
 
-        if (!isset($response_contents['results'])) {
+        if (!isset($response_contents['results']))
+        {
             return $this->collection;
         }
 
-        if (is_callable($this->callback)) {
+        if (is_callable($this->callback))
+        {
             $return = array_map($this->callback, $response_contents['results']);
-        } else {
+        }
+        else
+        {
             $return = $response_contents['results'];
         }
 
