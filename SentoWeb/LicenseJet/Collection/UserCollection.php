@@ -6,7 +6,7 @@ Class UserCollection extends BaseCollection {
     /**
      * @return User[]
      */
-    public function get()
+    public function get() : array
     {
         return parent::get();
     }

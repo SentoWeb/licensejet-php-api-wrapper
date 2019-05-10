@@ -6,7 +6,7 @@ Class ProjectCollection extends BaseCollection {
     /**
      * @return Project[]
      */
-    public function get()
+    public function get() : array
     {
         return parent::get();
     }
