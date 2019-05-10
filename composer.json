@@ -1,0 +1,22 @@
+{
+  "name": "SentoWeb/licensejet-php-api-wrapper",
+  "description": "PHP Wrapper for the LicenseJet API",
+  "license": "MIT",
+  "homepage": "http://licensejet.com",
+  "authors": [
+    {
+      "name": "SentoWeb",
+      "email": "office@sentoweb.com"
+    }
+  ],
+  "require": {
+    "php": "^7",
+    "ext-curl": "*",
+    "guzzlehttp/guzzle": "6.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "SentoWeb\\LicenseJet\\": ""
+    }
+  }
+}
