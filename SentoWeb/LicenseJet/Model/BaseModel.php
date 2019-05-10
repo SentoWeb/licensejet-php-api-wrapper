@@ -160,7 +160,14 @@ Abstract class BaseModel
             return null;
         }
 
-        return DateTime::createFromFormat($value, static::DATETIME_FORMAT);
+        $dateTime = DateTime::createFromFormat(static::DATETIME_FORMAT, $value);
+
+        if ($dateTime)
+        {
+            return $dateTime;
+        }
+
+        return null;
     }
 
     public function link($name = 'self') : ?string
