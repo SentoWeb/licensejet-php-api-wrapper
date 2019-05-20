@@ -2,7 +2,7 @@
 
 use Psr\Http\Message\ResponseInterface;
 
-Class LicenseJet_Response
+Class Response
 {
     private $payload = null;
 

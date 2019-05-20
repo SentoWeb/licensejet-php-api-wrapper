@@ -3,7 +3,7 @@
 use SentoWeb\LicenseJet\Collection\LicenseKeyCollection;
 use SentoWeb\LicenseJet\Resource\LicenseKey;
 Use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
-use SentoWeb\LicenseJet\LicenseJet_Response;
+use SentoWeb\LicenseJet\Response;
 
 Class LicenseKeyEndpoint extends Endpoint {
     /**
@@ -24,9 +24,9 @@ Class LicenseKeyEndpoint extends Endpoint {
 
     /**
      * @param LicenseKey $licenseKey
-     * @return LicenseJet_Response
+     * @return Response
      */
-    public function delete(LicenseKey $licenseKey) : LicenseJet_Response
+    public function delete(LicenseKey $licenseKey) : Response
     {
         return $this->request('DELETE', 'license_key/'.$licenseKey->getId());
     }
@@ -49,7 +49,7 @@ Class LicenseKeyEndpoint extends Endpoint {
 
     /**
      * @param LicenseKey $licenseKey
-     * @return LicenseJet_Response|LicenseKey
+     * @return Response|LicenseKey
      */
     public function create(LicenseKey $licenseKey)
     {

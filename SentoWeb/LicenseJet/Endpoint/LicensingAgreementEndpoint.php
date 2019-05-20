@@ -45,7 +45,7 @@ Class LicensingAgreementEndpoint extends Endpoint {
      * Update a licensing agreement.
      *
      * @param LicensingAgreement $licensingAgreement
-     * @return \SentoWeb\LicenseJet\LicenseJet_Response
+     * @return \SentoWeb\LicenseJet\Response
      */
     public function update(LicensingAgreement $licensingAgreement)
     {

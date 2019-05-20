@@ -3,7 +3,8 @@
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use SentoWeb\LicenseJet\Identity;
-use SentoWeb\LicenseJet\LicenseJet_Response;
+use SentoWeb\LicenseJet\Response;
+use SentoWeb\LicenseJet\LicenseJetException;
 
 Class Endpoint {
     public $identity;
@@ -17,7 +18,14 @@ Class Endpoint {
         $this->identity = $identity;
     }
 
-    public function request(string $method, string $uri, array $queryParams = []) : LicenseJet_Response
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param array $queryParams
+     * @return Response
+     * @throws LicenseJetException
+     */
+    public function request(string $method, string $uri, array $queryParams = []) : Response
     {
         $method = strtoupper($method);
 
@@ -39,6 +47,13 @@ Class Endpoint {
             $options[RequestOptions::QUERY] = $queryParams;
         }
 
-        return new LicenseJet_Response($client->send($request, $options));
+        try
+        {
+            return new Response($client->send($request, $options));
+        }
+        catch (\Throwable $e)
+        {
+            throw new LicenseJetException('Request failed. Error: '.$e->getMessage(), null, $e);
+        }
     }
 }

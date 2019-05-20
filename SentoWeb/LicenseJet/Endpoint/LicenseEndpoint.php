@@ -3,7 +3,7 @@
 use SentoWeb\LicenseJet\Collection\LicenseCollection;
 use SentoWeb\LicenseJet\Resource\License;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
-use SentoWeb\LicenseJet\LicenseJet_Response;
+use SentoWeb\LicenseJet\Response;
 
 Class LicenseEndpoint extends Endpoint {
     /**
@@ -46,9 +46,9 @@ Class LicenseEndpoint extends Endpoint {
      * Delete a License.
      *
      * @param License $license
-     * @return LicenseJet_Response
+     * @return Response
      */
-    public function delete(License $license) : LicenseJet_Response
+    public function delete(License $license) : Response
     {
         return $this->request('DELETE', 'license/'.$license->getId());
     }
@@ -58,9 +58,9 @@ Class LicenseEndpoint extends Endpoint {
      *
      * @param License $license
      * @param int|null $recipientUserId
-     * @return LicenseJet_Response
+     * @return Response
      */
-    public function transfer(License $license, ?int $recipientUserId) : LicenseJet_Response
+    public function transfer(License $license, ?int $recipientUserId) : Response
     {
         return $this->request('PUT','license/'.$license->getId().'/transfers', [
             'user_id' => $recipientUserId,
@@ -69,7 +69,7 @@ Class LicenseEndpoint extends Endpoint {
 
     /**
      * @param License $license
-     * @return License|LicenseJet_Response
+     * @return License|Response
      */
     public function create(License $license)
     {
@@ -86,7 +86,7 @@ Class LicenseEndpoint extends Endpoint {
 
     /**
      * @param License $license
-     * @return License|LicenseJet_Response
+     * @return License|Response
      */
     public function update(License $license)
     {

@@ -1,6 +1,6 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
-use SentoWeb\LicenseJet\LicenseJet_Response;
+use SentoWeb\LicenseJet\Response;
 use SentoWeb\LicenseJet\Resource\User;
 use SentoWeb\LicenseJet\Collection\UserCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
@@ -42,7 +42,7 @@ Class UserEndpoint extends Endpoint {
 
     /**
      * @param User $user
-     * @return LicenseJet_Response|User
+     * @return Response|User
      */
     public function create(User $user) {
         $response = $this->request('GET', 'users', $user->toArray());

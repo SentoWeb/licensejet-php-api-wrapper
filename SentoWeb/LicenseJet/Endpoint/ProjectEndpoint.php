@@ -1,6 +1,6 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
-use SentoWeb\LicenseJet\LicenseJet_Response;
+use SentoWeb\LicenseJet\Response;
 use SentoWeb\LicenseJet\Resource\Project;
 use SentoWeb\LicenseJet\Collection\ProjectCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
@@ -36,9 +36,9 @@ Class ProjectEndpoint extends Endpoint {
 
     /**
      * @param Project $project
-     * @return \SentoWeb\LicenseJet\LicenseJet_Response
+     * @return \SentoWeb\LicenseJet\Response
      */
-    public function update(Project $project) : LicenseJet_Response
+    public function update(Project $project) : Response
     {
         return $this->request(
             'POST',
