@@ -12,7 +12,7 @@ Class CollectionRequestBuilder extends RequestBuilder
      */
     function get(array $params = [], &$response = null) : BaseCollection
     {
-        $response = $this->endpoint->get($this->uri,
+        $response = $this->endpoint->request('GET', $this->uri,
             array_merge($params, $this->getParams())
         );
 

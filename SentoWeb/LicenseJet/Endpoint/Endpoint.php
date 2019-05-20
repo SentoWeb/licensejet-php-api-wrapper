@@ -17,7 +17,7 @@ Class Endpoint {
         $this->identity = $identity;
     }
 
-    protected function request(string $method, string $uri, array $queryParams = []) : LicenseJet_Response
+    public function request(string $method, string $uri, array $queryParams = []) : LicenseJet_Response
     {
         $method = strtoupper($method);
 
