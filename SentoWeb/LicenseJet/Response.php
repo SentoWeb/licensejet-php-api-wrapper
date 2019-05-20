@@ -5,6 +5,7 @@ use Psr\Http\Message\ResponseInterface;
 Class LicenseJet_Response
 {
     private $payload = null;
+
     private $httpResponse;
 
     static $STATUS_OK = 200;
