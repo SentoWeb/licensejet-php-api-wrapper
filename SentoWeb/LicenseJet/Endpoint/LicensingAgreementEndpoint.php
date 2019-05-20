@@ -10,12 +10,13 @@ Class LicensingAgreementEndpoint extends Endpoint {
      *
      * @return CollectionRequestBuilder
      */
-    public function licensing_agreements() {
+    public function list() {
         return new CollectionRequestBuilder(
             $this->identity,
             'licensing_agreements',
             $this,
-            function ($project) {
+            function ($project)
+            {
                 return new LicensingAgreement((array) $project);
             },
             new LicensingAgreementCollection()
@@ -25,26 +26,33 @@ Class LicensingAgreementEndpoint extends Endpoint {
     /**
      * Get licensing agreement by ID.
      *
-     * @param $licensing_agreement_id
-     * @return bool|LicensingAgreement
+     * @param $licensingAgreementId
+     * @return null|LicensingAgreement
      */
-    public function licensing_agreement($licensing_agreement_id) {
-        $response = $this->get('licensing_agreement/'.$licensing_agreement_id, []);
+    public function get($licensingAgreementId) : ?LicensingAgreement
+    {
+        $response = $this->request('GET', 'licensing_agreement/'.$licensingAgreementId, []);
 
-        if ($response->isSuccessful()) {
+        if ($response->isSuccessful())
+        {
             return new LicensingAgreement((array) $response->getPayload());
         }
 
-        return false;
+        return null;
     }
 
     /**
      * Update a licensing agreement.
      *
      * @param LicensingAgreement $licensingAgreement
-     * @return \SentoWeb\LicenseJet\Response\Response
+     * @return \SentoWeb\LicenseJet\LicenseJet_Response
      */
-    public function update(LicensingAgreement $licensingAgreement) {
-        return $this->post($this->identity->getUrl('licensing_agreement/'.$licensingAgreement->getId()), $licensingAgreement->toArray());
+    public function update(LicensingAgreement $licensingAgreement)
+    {
+        return $this->request(
+            'POST',
+            'licensing_agreement/'.$licensingAgreement->getId(),
+            $licensingAgreement->toArray()
+        );
     }
 }

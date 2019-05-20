@@ -11,7 +11,7 @@ Class Identity
     /**
      * @var Client
      */
-    public $client;
+    protected $client;
 
     public function __construct(string $apiUrl, string $apiKey)
     {
@@ -28,6 +28,11 @@ Class Identity
         $this->client = new Client([
             'base_uri' => $this->apiUrl
         ]);
+    }
+
+    public function client() : Client
+    {
+        return $this->client;
     }
 
     public function getUrl($path = '') : string

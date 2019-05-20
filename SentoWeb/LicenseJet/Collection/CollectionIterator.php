@@ -29,11 +29,13 @@ Class CollectionIterator implements \Iterator
 
     private function getData()
     {
-        if ($this->data === null) {
+        if ($this->data === null)
+        {
             $this->data = $this->requestBuilder->page($this->page)->limit($this->limit)->get($this->params);
         }
 
-        if ($this->data instanceof BaseCollection) {
+        if ($this->data instanceof BaseCollection)
+        {
             return $this->data;
         }
 

@@ -6,10 +6,13 @@ use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 
 Class TermEndpoint extends Endpoint {
     /**
-     * @return BaseCollection
+     * Retrieve Terms.
+     *
+     * @return CollectionRequestBuilder
      */
-    public function terms() {
-        return (new CollectionRequestBuilder(
+    public function list() : CollectionRequestBuilder
+    {
+        return new CollectionRequestBuilder(
             $this->identity,
             'terms',
             $this,
@@ -17,6 +20,6 @@ Class TermEndpoint extends Endpoint {
                 return new Term((array) $project);
             },
             new BaseCollection()
-        ))->get();
+        );
     }
 }

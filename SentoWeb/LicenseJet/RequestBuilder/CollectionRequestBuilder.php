@@ -3,7 +3,8 @@
 use SentoWeb\LicenseJet\Collection\BaseCollection;
 use SentoWeb\LicenseJet\Collection\CollectionIterator;
 
-Class CollectionRequestBuilder extends RequestBuilder {
+Class CollectionRequestBuilder extends RequestBuilder
+{
     /**
      * @param array $params
      * @param $response
@@ -11,7 +12,6 @@ Class CollectionRequestBuilder extends RequestBuilder {
      */
     function get(array $params = [], &$response = null) : BaseCollection
     {
-
         $response = $this->endpoint->get($this->uri,
             array_merge($params, $this->getParams())
         );

@@ -8,7 +8,8 @@ Class ProjectOptionEndpoint extends Endpoint {
     /**
      * @return CollectionRequestBuilder
      */
-    public function get_options() {
+    public function list() : CollectionRequestBuilder
+    {
         return new CollectionRequestBuilder(
             $this->identity,
             'project_options',

@@ -1,22 +1,27 @@
-<?php namespace SentoWeb\LicenseJet\Response;
+<?php namespace SentoWeb\LicenseJet;
 
-Use GuzzleHttp\Psr7\Response as HttpResponse;
+use Psr\Http\Message\ResponseInterface;
 
-Class Response {
+Class LicenseJet_Response
+{
     private $payload = null;
     private $httpResponse;
 
     static $STATUS_OK = 200;
+
     static $STATUS_NOT_CHANGED = 304;
 
-    public function __construct($payload, HttpResponse $httpResponse = null)
+    public function __construct(ResponseInterface $httpResponse)
     {
-        $this->payload = $payload;
+        $this->payload = $httpResponse->getBody()->getContents();
 
         $this->httpResponse = $httpResponse;
 
-        if ($httpResponse && is_array($httpResponse->getHeader('Content-Type'))) {
-            if (in_array('application/json', $httpResponse->getHeader('Content-Type'))) {
+        // Process JSON
+        if ($httpResponse && is_array($httpResponse->getHeader('Content-Type')))
+        {
+            if (in_array('application/json', $httpResponse->getHeader('Content-Type')))
+            {
                 $this->payload = json_decode($this->payload, true);
             }
         }
@@ -24,17 +29,21 @@ Class Response {
 
     public function getErrorMessage() : ?string
     {
-        if ($this->httpResponse) {
+        if ($this->httpResponse)
+        {
             return $this->httpResponse->getReasonPhrase();
         }
+
+        return null;
     }
 
-    public function getPayload($default = []) : array
+    public function getPayload($default = [])
     {
         return $this->payload ?: $default;
     }
 
-    public function getStatusCode() {
+    public function getStatusCode()
+    {
         return $this->httpResponse ? $this->httpResponse->getStatusCode() : null;
     }
 

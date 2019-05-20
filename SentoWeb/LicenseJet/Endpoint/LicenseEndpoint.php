@@ -3,7 +3,7 @@
 use SentoWeb\LicenseJet\Collection\LicenseCollection;
 use SentoWeb\LicenseJet\Model\License;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
-use SentoWeb\LicenseJet\Response\Response;
+use SentoWeb\LicenseJet\LicenseJet_Response;
 
 Class LicenseEndpoint extends Endpoint {
     /**
@@ -11,7 +11,7 @@ Class LicenseEndpoint extends Endpoint {
      *
      * @return CollectionRequestBuilder
      */
-    public function licenses() : CollectionRequestBuilder
+    public function list() : CollectionRequestBuilder
     {
         return new CollectionRequestBuilder(
             $this->identity,
@@ -27,14 +27,15 @@ Class LicenseEndpoint extends Endpoint {
     /**
      * Retrieve a License.
      *
-     * @param $license_id
+     * @param $licenseId
      * @return null|License
      */
-    public function license($license_id) : ?License
+    public function get($licenseId) : ?License
     {
-        $response = $this->get('license/'.$license_id, []);
+        $response = $this->request('GET', 'license/'.$licenseId, []);
 
-        if ($response->isSuccessful()) {
+        if ($response->isSuccessful())
+        {
             return new License((array) $response->getPayload());
         }
 
@@ -45,36 +46,34 @@ Class LicenseEndpoint extends Endpoint {
      * Delete a License.
      *
      * @param License $license
-     * @return Response
+     * @return LicenseJet_Response
      */
-    public function deleteLicense(License $license) : Response
+    public function delete(License $license) : LicenseJet_Response
     {
-        return $this->delete('license/'.$license->getId());
+        return $this->request('DELETE', 'license/'.$license->getId());
     }
 
     /**
      * Create a new Transfer on the License.
      *
      * @param License $license
-     * @param int|null $recipient_user_id
-     * @return Response
+     * @param int|null $recipientUserId
+     * @return LicenseJet_Response
      */
-    public function transferLicense(License $license, ?int $recipient_user_id) : Response
+    public function transfer(License $license, ?int $recipientUserId) : LicenseJet_Response
     {
-        return $this->post('license/'.$license->getId().'/transfers', [
-            'user_id' => $recipient_user_id,
+        return $this->request('PUT','license/'.$license->getId().'/transfers', [
+            'user_id' => $recipientUserId,
         ]);
     }
 
     /**
-     * @todo: double check with WP integration (it may expect false!)
-     *
      * @param License $license
-     * @return License|Response
+     * @return License|LicenseJet_Response
      */
-    public function createLicense(License $license)
+    public function create(License $license)
     {
-        $response = $this->post('licenses', $license->toArray());
+        $response = $this->request('POST', 'licenses', $license->toArray());
 
         if ($response->isSuccessful())
         {
@@ -87,11 +86,11 @@ Class LicenseEndpoint extends Endpoint {
 
     /**
      * @param License $license
-     * @return License|Response
+     * @return License|LicenseJet_Response
      */
-    public function updateLicense(License $license)
+    public function update(License $license)
     {
-        $response = $this->post('license/'.$license->getId(), $license->toArray());
+        $response = $this->request('POST', 'license/'.$license->getId(), $license->toArray());
 
         if ($response->isSuccessful())
         {

@@ -3,38 +3,38 @@
 use SentoWeb\LicenseJet\Collection\LicenseKeyCollection;
 use SentoWeb\LicenseJet\Model\LicenseKey;
 Use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
-use SentoWeb\LicenseJet\Response\Response;
+use SentoWeb\LicenseJet\LicenseJet_Response;
 
 Class LicenseKeyEndpoint extends Endpoint {
     /**
-     * @param $license_key_id
-     * @return bool|LicenseKey
+     * @param $licenseKeyId
+     * @return null|LicenseKey
      */
-    public function license_key($license_key_id)
+    public function get($licenseKeyId) : ?LicenseKey
     {
-        $response = $this->get('license_key/'.$license_key_id, []);
+        $response = $this->request('GET', 'license_key/'.$licenseKeyId, []);
 
         if ($response->isSuccessful())
         {
             return new LicenseKey((array) $response->getPayload());
         }
 
-        return false;
+        return null;
     }
 
     /**
      * @param LicenseKey $licenseKey
-     * @return Response
+     * @return LicenseJet_Response
      */
-    public function delete_license_key(LicenseKey $licenseKey) : Response
+    public function delete(LicenseKey $licenseKey) : LicenseJet_Response
     {
-        return $this->delete('license_key/'.$licenseKey->getId());
+        return $this->request('DELETE', 'license_key/'.$licenseKey->getId());
     }
 
     /**
      * @return CollectionRequestBuilder
      */
-    public function license_keys()
+    public function list() : CollectionRequestBuilder
     {
         return new CollectionRequestBuilder(
             $this->identity,
@@ -48,15 +48,17 @@ Class LicenseKeyEndpoint extends Endpoint {
     }
 
     /**
-     * @param LicenseKey $license_key
-     * @return Response|LicenseKey
+     * @param LicenseKey $licenseKey
+     * @return LicenseJet_Response|LicenseKey
      */
-    public function create(LicenseKey $license_key) {
-        $response = $this->post('license_keys', $license_key->toArray());
+    public function create(LicenseKey $licenseKey)
+    {
+        $response = $this->request('GET', 'license_keys', $licenseKey->toArray());
 
-        if ($response->isSuccessful()) {
-            $license_key->fill((array) $response->getPayload());
-            return $license_key;
+        if ($response->isSuccessful())
+        {
+            $licenseKey->fill((array) $response->getPayload());
+            return $licenseKey;
         }
 
         return $response;

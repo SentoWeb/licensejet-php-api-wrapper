@@ -1,5 +1,6 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
+use SentoWeb\LicenseJet\LicenseJet_Response;
 use SentoWeb\LicenseJet\Model\User;
 use SentoWeb\LicenseJet\Collection\UserCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
@@ -8,13 +9,15 @@ Class UserEndpoint extends Endpoint {
     /**
      * Get user by ID.
      *
-     * @param $user_id
+     * @param $userId
      * @return bool|User
      */
-    public function user($user_id) {
-        $response = $this->get('user/'.$user_id, []);
+    public function get($userId) : ?User
+    {
+        $response = $this->request('GET', 'user/'.$userId);
 
-        if ($response->isSuccessful()) {
+        if ($response->isSuccessful())
+        {
             return new User((array) $response->getPayload());
         }
 
@@ -24,7 +27,8 @@ Class UserEndpoint extends Endpoint {
     /**
      * @return CollectionRequestBuilder
      */
-    public function users() {
+    public function list() : CollectionRequestBuilder
+    {
         return new CollectionRequestBuilder(
             $this->identity,
             'users',
@@ -38,16 +42,17 @@ Class UserEndpoint extends Endpoint {
 
     /**
      * @param User $user
-     * @return bool|User
+     * @return LicenseJet_Response|User
      */
     public function create(User $user) {
-        $response = $this->post('users', $user->toArray());
+        $response = $this->request('GET', 'users', $user->toArray());
 
-        if ($response->isSuccessful()) {
+        if ($response->isSuccessful())
+        {
             $user->fill((array) $response->getPayload());
             return $user;
         }
 
-        return false;
+        return $response;
     }
 }

@@ -4,19 +4,6 @@ use DateTime;
 
 Class License extends BaseModel
 {
-    static $STATUS_ACTIVE = 1;
-    static $STATUS_EXPIRED = 2;
-    static $STATUS_SUSPENDED = 3; // @todo: check values
-
-    public static function getStatusCodes()
-    {
-        return [
-            1 => 'Active',
-            2 => 'Expired',
-            3 => 'Suspended'
-        ];
-    }
-
     /**
      * Get License Identifier.
      *
@@ -65,17 +52,12 @@ Class License extends BaseModel
         $this->setAttribute('access_key', $accessKey);
     }
 
-    public function getStatus() : ?int
+    public function getStatus() : ?string
     {
-        if (is_null($this->getAttribute('status')))
-        {
-            return null;
-        }
-
-        return (int) $this->getAttribute('status');
+        return $this->getAttribute('status');
     }
 
-    public function setStatus(int $status) : void
+    public function setStatus(string $status) : void
     {
         $this->setAttribute('status', $status);
     }

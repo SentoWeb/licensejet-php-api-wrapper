@@ -1,7 +1,9 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\RequestOptions;
 use SentoWeb\LicenseJet\Identity;
-use SentoWeb\LicenseJet\Response\Response;
+use SentoWeb\LicenseJet\LicenseJet_Response;
 
 Class Endpoint {
     public $identity;
@@ -15,69 +17,28 @@ Class Endpoint {
         $this->identity = $identity;
     }
 
-    private function get_params(array $params) : array
+    protected function request(string $method, string $uri, array $queryParams = []) : LicenseJet_Response
     {
-        return array_merge(
-            $params,
-            [
-                'key' => $this->identity->getKey()
-            ]
-        );
-    }
+        $method = strtoupper($method);
 
-    /**
-     * @param $uri
-     * @param $params
-     * @return Response
-     */
-    public function get($uri, $params) : Response
-    {
-        $response = $this->identity->client->request('GET', $this->identity->getUrl($uri),  [
-            'query' => $this->get_params($params)
+        $client = $this->identity->client();
+
+        $request = new Request($method, $uri, [
+            'Authorization' => 'APIKEY '.$this->identity->getKey(),
+            'Accept' => 'application/json'
         ]);
 
-        return new Response($response->getBody()->getContents(), $response);
-    }
+        $options = [];
 
-    /**
-     * @param $uri
-     * @param $params
-     * @return Response
-     */
-    public function put($uri, $params) : Response
-    {
-        $response = $this->identity->client->request('PUT', $this->identity->getUrl($uri),  [
-            'query' => $this->get_params($params)
-        ]);
+        if ($method == 'POST' && !empty($queryParams))
+        {
+            $options[RequestOptions::FORM_PARAMS] = $queryParams;
+        }
+        elseif (!empty($queryParams))
+        {
+            $options[RequestOptions::QUERY] = $queryParams;
+        }
 
-        return new Response($response->getBody()->getContents(), $response);
-    }
-
-    /**
-     * @param $uri
-     * @param $params
-     * @return Response
-     */
-    public function post($uri, $params) : Response
-    {
-        $response = $this->identity->client->post($this->identity->getUrl($uri), [
-            'form_params' => $this->get_params($params)
-        ]);
-
-        return new Response($response->getBody()->getContents(), $response);
-    }
-
-    /**
-     * @param $uri
-     * @param array $params
-     * @return Response
-     */
-    public function delete($uri, $params = []) : Response
-    {
-        $response = $this->identity->client->request('DELETE', $this->identity->getUrl($uri),  [
-            'query' => $this->get_params($params)
-        ]);
-
-        return new Response($response->getBody()->getContents(), $response);
+        return new LicenseJet_Response($client->send($request, $options));
     }
 }
