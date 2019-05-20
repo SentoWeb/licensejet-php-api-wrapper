@@ -1,8 +1,8 @@
-<?php namespace SentoWeb\LicenseJet\Model;
+<?php namespace SentoWeb\LicenseJet\Resource;
 
 use DateTime;
 
-Abstract class BaseModel
+Abstract class Resource
 {
     protected $attributes;
     protected $originalAttributes;
@@ -39,7 +39,7 @@ Abstract class BaseModel
      * @param array $attributes
      * @return static
      */
-    public function fill(array $attributes) : BaseModel
+    public function fill(array $attributes) : Resource
     {
         $this->attributes = array_merge($this->attributes, array_map(function ($attributes) {
             return $attributes;

@@ -1,8 +1,8 @@
-<?php namespace SentoWeb\LicenseJet\Model;
+<?php namespace SentoWeb\LicenseJet\Resource;
 
 use DateTime;
 
-Class LicenseKey extends BaseModel {
+Class LicenseKey extends Resource {
     public function getLicenseId() : ?string
     {
         return $this->getAttribute('license_id');

@@ -1,8 +1,8 @@
-<?php namespace SentoWeb\LicenseJet\Model;
+<?php namespace SentoWeb\LicenseJet\Resource;
 
 use DateTime;
 
-Class LicensingAgreement extends BaseModel {
+Class LicensingAgreement extends Resource {
     /**
      * Get unique identifier
      *

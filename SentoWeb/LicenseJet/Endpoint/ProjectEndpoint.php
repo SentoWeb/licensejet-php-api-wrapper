@@ -1,7 +1,7 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
 use SentoWeb\LicenseJet\LicenseJet_Response;
-use SentoWeb\LicenseJet\Model\Project;
+use SentoWeb\LicenseJet\Resource\Project;
 use SentoWeb\LicenseJet\Collection\ProjectCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 

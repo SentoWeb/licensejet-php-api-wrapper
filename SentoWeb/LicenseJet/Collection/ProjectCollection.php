@@ -1,6 +1,6 @@
 <?php namespace SentoWeb\LicenseJet\Collection;
 
-use SentoWeb\LicenseJet\Model\Project;
+use SentoWeb\LicenseJet\Resource\Project;
 
 Class ProjectCollection extends BaseCollection {
     /**

@@ -1,7 +1,7 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
 use SentoWeb\LicenseJet\Collection\BaseCollection;
-use SentoWeb\LicenseJet\Model\Term;
+use SentoWeb\LicenseJet\Resource\Term;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 
 Class TermEndpoint extends Endpoint {

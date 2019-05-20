@@ -1,6 +1,6 @@
 <?php namespace SentoWeb\LicenseJet\Collection;
 
-use SentoWeb\LicenseJet\Model\BaseModel;
+use SentoWeb\LicenseJet\Resource\Resource;
 
 Class BaseCollection implements \ArrayAccess {
     protected $data = [];
@@ -16,7 +16,7 @@ Class BaseCollection implements \ArrayAccess {
 
     public function toArray() : array
     {
-        return array_map(function (BaseModel $model)
+        return array_map(function (Resource $model)
         {
             return $model->toArray();
         }, $this->get());
@@ -53,7 +53,7 @@ Class BaseCollection implements \ArrayAccess {
     }
 
     public function contains($modelId) : bool {
-        return count(array_filter($this->get(), function (BaseModel $model) use($modelId) {
+        return count(array_filter($this->get(), function (Resource $model) use($modelId) {
             return $model->getId() == $modelId;
         })) != 0;
     }

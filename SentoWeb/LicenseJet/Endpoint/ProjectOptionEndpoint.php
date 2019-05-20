@@ -1,7 +1,7 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
 use SentoWeb\LicenseJet\Collection\ProjectOptionCollection;
-use SentoWeb\LicenseJet\Model\ProjectOption;
+use SentoWeb\LicenseJet\Resource\ProjectOption;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 
 Class ProjectOptionEndpoint extends Endpoint {

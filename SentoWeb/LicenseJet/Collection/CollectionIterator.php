@@ -5,9 +5,13 @@ use SentoWeb\LicenseJet\RequestBuilder\RequestBuilder;
 Class CollectionIterator implements \Iterator
 {
     protected $requestBuilder;
+
     protected $params;
+
     protected $response;
+
     protected $page;
+
     protected $limit;
 
     /**

@@ -1,6 +1,6 @@
-<?php namespace SentoWeb\LicenseJet\Model;
+<?php namespace SentoWeb\LicenseJet\Resource;
 
-Class Term extends BaseModel
+Class Term extends Resource
 {
     public function getType() : ?string
     {

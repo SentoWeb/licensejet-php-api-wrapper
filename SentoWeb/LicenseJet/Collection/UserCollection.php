@@ -1,6 +1,6 @@
 <?php namespace SentoWeb\LicenseJet\Collection;
 
-use SentoWeb\LicenseJet\Model\User;
+use SentoWeb\LicenseJet\Resource\User;
 
 Class UserCollection extends BaseCollection {
     /**

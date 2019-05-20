@@ -1,6 +1,6 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
-use SentoWeb\LicenseJet\Model\LicensingAgreement;
+use SentoWeb\LicenseJet\Resource\LicensingAgreement;
 use SentoWeb\LicenseJet\Collection\LicensingAgreementCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 

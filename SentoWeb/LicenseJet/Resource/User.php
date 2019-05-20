@@ -1,6 +1,6 @@
-<?php namespace SentoWeb\LicenseJet\Model;
+<?php namespace SentoWeb\LicenseJet\Resource;
 
-Class User extends BaseModel {
+Class User extends Resource {
     /**
      * Get the email of the user.
      *
