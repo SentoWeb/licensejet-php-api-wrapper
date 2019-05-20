@@ -11,14 +11,14 @@ Class BaseCollection implements \ArrayAccess {
 
     public function __construct(array $data = null)
     {
-        $this->data = $data;
+        $this->data = $data ?: [];
     }
 
     public function toArray() : array
     {
-        return array_map(function (Resource $model)
+        return array_map(function (Resource $resource)
         {
-            return $model->toArray();
+            return $resource->toArray();
         }, $this->get());
     }
 
@@ -52,7 +52,8 @@ Class BaseCollection implements \ArrayAccess {
         return $this->data;
     }
 
-    public function contains($modelId) : bool {
+    public function contains($modelId) : bool
+    {
         return count(array_filter($this->get(), function (Resource $model) use($modelId) {
             return $model->getId() == $modelId;
         })) != 0;
