@@ -1,6 +1,6 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
-use SentoWeb\LicenseJet\Response;
+use SentoWeb\LicenseJet\LicenseJetException;
 use SentoWeb\LicenseJet\Resource\Project;
 use SentoWeb\LicenseJet\Collection\ProjectCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
@@ -22,28 +22,41 @@ Class ProjectEndpoint extends Endpoint {
         );
     }
 
-    public function get($projectId) : ?Project
+    /**
+     * @param int $projectId
+     * @return Project
+     * @throws LicenseJetException
+     */
+    public function get(int $projectId) : Project
     {
         $response = $this->request('GET', 'project/'.$projectId, []);
 
         if ($response->isSuccessful())
         {
-            return new Project((array) $response->getPayload());
+            return Project::createFromArray((array) $response->getPayload());
         }
 
-        return null;
+        throw new LicenseJetException('Failed to retrieve resource. Error: '.$response->getErrorMessage());
     }
 
     /**
      * @param Project $project
-     * @return \SentoWeb\LicenseJet\Response
+     * @return Project
+     * @throws LicenseJetException
      */
-    public function update(Project $project) : Response
+    public function update(Project $project) : Project
     {
-        return $this->request(
+        $response = $this->request(
             'POST',
             'projects/'.$project->getId(),
             $project->toArray()
         );
+
+        if ($response->isSuccessful())
+        {
+            return Project::createFromArray((array) $response->getPayload());
+        }
+
+        throw new LicenseJetException('Failed to update resource. Error: '.$response->getErrorMessage());
     }
 }

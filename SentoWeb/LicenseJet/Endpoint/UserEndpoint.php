@@ -1,6 +1,6 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
-use SentoWeb\LicenseJet\Response;
+use SentoWeb\LicenseJet\LicenseJetException;
 use SentoWeb\LicenseJet\Resource\User;
 use SentoWeb\LicenseJet\Collection\UserCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
@@ -10,18 +10,19 @@ Class UserEndpoint extends Endpoint {
      * Get user by ID.
      *
      * @param $userId
-     * @return bool|User
+     * @return User
+     * @throws LicenseJetException
      */
-    public function get($userId) : ?User
+    public function get($userId) : User
     {
         $response = $this->request('GET', 'user/'.$userId);
 
         if ($response->isSuccessful())
         {
-            return new User((array) $response->getPayload());
+            return User::createFromArray((array) $response->getPayload());
         }
 
-        return false;
+        throw new LicenseJetException('Failed to retrieve resource. Error: '.$response->getErrorMessage());
     }
 
     /**
@@ -42,17 +43,18 @@ Class UserEndpoint extends Endpoint {
 
     /**
      * @param User $user
-     * @return Response|User
+     * @return User
+     * @throws LicenseJetException
      */
-    public function create(User $user) {
+    public function create(User $user) : User
+    {
         $response = $this->request('GET', 'users', $user->toArray());
 
         if ($response->isSuccessful())
         {
-            $user->fill((array) $response->getPayload());
-            return $user;
+            return User::createFromArray((array) $response->getPayload());
         }
 
-        return $response;
+        throw new LicenseJetException('Failed to update resource. Error: '.$response->getErrorMessage());
     }
 }

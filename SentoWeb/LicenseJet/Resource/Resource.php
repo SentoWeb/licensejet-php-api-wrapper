@@ -153,6 +153,15 @@ Abstract class Resource
         return $array;
     }
 
+    /**
+     * @param array $attributes
+     * @return static
+     */
+    public static function createFromArray(array $attributes) : self
+    {
+        return new static($attributes);
+    }
+
     public function getDateTimeOrNull($value) : ?DateTime
     {
         if (!$value)

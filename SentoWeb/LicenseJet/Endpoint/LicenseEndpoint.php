@@ -1,11 +1,13 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
 use SentoWeb\LicenseJet\Collection\LicenseCollection;
+use SentoWeb\LicenseJet\LicenseJetException;
 use SentoWeb\LicenseJet\Resource\License;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 use SentoWeb\LicenseJet\Response;
 
-Class LicenseEndpoint extends Endpoint {
+Class LicenseEndpoint extends Endpoint
+{
     /**
      * List licenses.
      *
@@ -29,17 +31,18 @@ Class LicenseEndpoint extends Endpoint {
      *
      * @param $licenseId
      * @return null|License
+     * @throws \Exception
      */
-    public function get($licenseId) : ?License
+    public function get(int $licenseId) : License
     {
         $response = $this->request('GET', 'license/'.$licenseId, []);
 
         if ($response->isSuccessful())
         {
-            return new License((array) $response->getPayload());
+            return License::createFromArray((array) $response->getPayload());
         }
 
-        return null;
+        throw new LicenseJetException('Failed to retrieve resource. Error: '.$response->getErrorMessage());
     }
 
     /**
@@ -58,46 +61,54 @@ Class LicenseEndpoint extends Endpoint {
      *
      * @param License $license
      * @param int|null $recipientUserId
-     * @return Response
+     * @return License
+     * @throws \Exception
      */
-    public function transfer(License $license, ?int $recipientUserId) : Response
+    public function transfer(License $license, ?int $recipientUserId) : License
     {
-        return $this->request('PUT','license/'.$license->getId().'/transfers', [
+        $response = $this->request('PUT','license/'.$license->getId().'/transfers', [
             'user_id' => $recipientUserId,
         ]);
+
+        if ($response->isSuccessful())
+        {
+            return License::createFromArray((array) $response->getPayload());
+        }
+
+        throw new \Exception('Failed to update resource. Error: '.$response->getErrorMessage());
     }
 
     /**
      * @param License $license
-     * @return License|Response
+     * @return License
+     * @throws LicenseJetException
      */
-    public function create(License $license)
+    public function create(License $license) : License
     {
         $response = $this->request('POST', 'licenses', $license->toArray());
 
         if ($response->isSuccessful())
         {
-            $license->fill((array) $response->getPayload());
-            return $license;
+            License::createFromArray((array) $response->getPayload());
         }
 
-        return $response;
+        throw new LicenseJetException('Failed to create resource. Error: '.$response->getErrorMessage());
     }
 
     /**
      * @param License $license
-     * @return License|Response
+     * @return License
+     * @throws \Exception
      */
-    public function update(License $license)
+    public function update(License $license) : License
     {
         $response = $this->request('POST', 'license/'.$license->getId(), $license->toArray());
 
         if ($response->isSuccessful())
         {
-            $license->fill((array) $response->getPayload());
-            return $license;
+            License::createFromArray((array) $response->getPayload());
         }
 
-        return $response;
+        throw new \Exception('Failed to update resource. Error: '.$response->getErrorMessage());
     }
 }

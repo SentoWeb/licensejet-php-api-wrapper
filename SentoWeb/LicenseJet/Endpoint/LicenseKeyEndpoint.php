@@ -1,6 +1,7 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
 use SentoWeb\LicenseJet\Collection\LicenseKeyCollection;
+use SentoWeb\LicenseJet\LicenseJetException;
 use SentoWeb\LicenseJet\Resource\LicenseKey;
 Use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 use SentoWeb\LicenseJet\Response;
@@ -8,18 +9,19 @@ use SentoWeb\LicenseJet\Response;
 Class LicenseKeyEndpoint extends Endpoint {
     /**
      * @param $licenseKeyId
-     * @return null|LicenseKey
+     * @return LicenseKey
+     * @throws LicenseJetException
      */
-    public function get($licenseKeyId) : ?LicenseKey
+    public function get(int $licenseKeyId) : LicenseKey
     {
         $response = $this->request('GET', 'license_key/'.$licenseKeyId, []);
 
         if ($response->isSuccessful())
         {
-            return new LicenseKey((array) $response->getPayload());
+            return LicenseKey::createFromArray((array) $response->getPayload());
         }
 
-        return null;
+        throw new LicenseJetException('Failed to retrieve resource. Error: '.$response->getErrorMessage());;
     }
 
     /**
@@ -49,18 +51,18 @@ Class LicenseKeyEndpoint extends Endpoint {
 
     /**
      * @param LicenseKey $licenseKey
-     * @return Response|LicenseKey
+     * @return LicenseKey
+     * @throws LicenseJetException
      */
-    public function create(LicenseKey $licenseKey)
+    public function create(LicenseKey $licenseKey) : LicenseKey
     {
         $response = $this->request('GET', 'license_keys', $licenseKey->toArray());
 
         if ($response->isSuccessful())
         {
-            $licenseKey->fill((array) $response->getPayload());
-            return $licenseKey;
+            return LicenseKey::createFromArray((array) $response->getPayload());
         }
 
-        return $response;
+        throw new LicenseJetException('Failed to create resource. Error: '.$response->getErrorMessage());
     }
 }
