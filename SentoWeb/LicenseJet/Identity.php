@@ -37,7 +37,7 @@ Class Identity
 
     public function getUrl($path = '') : string
     {
-        return $this->normalize_url($this->apiUrl.'/'.$path);
+        return $this->normalize_url($this->apiUrl.$path);
     }
 
     public function getKey() :string
