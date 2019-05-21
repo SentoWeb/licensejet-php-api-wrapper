@@ -2,15 +2,31 @@
 
 use DateTime;
 
-Class LicenseKey extends Resource {
-    public function getLicenseId() : ?string
+Class LicenseKey extends Resource
+{
+    public function getLicenseId() : ?int
     {
-        return $this->getAttribute('license_id');
+        if (is_null($this->getAttribute('license_id')))
+        {
+            return null;
+        }
+
+        return (int) $this->getAttribute('license_id');
+    }
+
+    public function setLicenseId(int $licenseId)
+    {
+        $this->setAttribute('license_id', $licenseId);
     }
 
     public function getHost() : ?string
     {
         return $this->getAttribute('url');
+    }
+
+    public function setHost(?string $host)
+    {
+        $this->setAttribute('host', $host);
     }
 
     public function getKey() : ?string

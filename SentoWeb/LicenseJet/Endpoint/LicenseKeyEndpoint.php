@@ -56,7 +56,7 @@ Class LicenseKeyEndpoint extends Endpoint {
      */
     public function create(LicenseKey $licenseKey) : LicenseKey
     {
-        $response = $this->request('GET', 'license_keys', $licenseKey->toArray());
+        $response = $this->request('POST', 'license_keys', $licenseKey->toArray());
 
         if ($response->isSuccessful())
         {
