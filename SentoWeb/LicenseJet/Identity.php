@@ -15,11 +15,7 @@ Class Identity
 
     public function __construct(string $apiUrl, string $apiKey)
     {
-        // Make sure that the API URL ends in a forward slash
-        if (strpos($apiUrl, "/") !== strlen($apiUrl) - 1)
-        {
-            $apiUrl .= "/";
-        }
+        // @todo: add slash
 
         $this->apiUrl = $apiUrl;
         $this->apiKey = $apiKey;
