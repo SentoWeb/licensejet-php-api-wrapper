@@ -37,43 +37,15 @@ Abstract class Resource
 
     /**
      * @param array $attributes
-     * @return static
+     * @return self
      */
-    public function fill(array $attributes) : Resource
+    public function fill(array $attributes) : self
     {
         $this->attributes = array_merge($this->attributes, array_map(function ($attributes) {
             return $attributes;
         }, $attributes));
 
         return $this;
-    }
-
-    public function __call($key, $value)
-    {
-        if (strpos($key, "set") === 0)
-        {
-            $key = str_replace("set", "", strtolower($key));
-
-            $this->attributes[$key] = $value[0];
-        }
-
-        if (strpos($key, "get") === 0)
-        {
-            $key = str_replace("get", "", strtolower($key));
-
-            return $this->attributes[$key];
-        }
-    }
-
-    public function __get($key) {
-        if (method_exists($this, 'get'.$key))
-        {
-            return call_user_func([$this, 'get'.$key], $this->attributes[$key]);
-        }
-        else
-        {
-            return $this->attributes[$key];
-        }
     }
 
     public function hasChanges() : bool
