@@ -9,7 +9,7 @@ Abstract class Resource
 
     const DATETIME_FORMAT = 'Y-m-d H:i:s';
 
-    public function __construct(array $attributes = null)
+    public function __construct(array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->originalAttributes = $attributes;
