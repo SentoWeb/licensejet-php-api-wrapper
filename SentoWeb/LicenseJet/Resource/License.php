@@ -150,4 +150,14 @@ Class License extends Resource
     {
         return $this->getType() == 'perpetual';
     }
+
+    public function isActive()
+    {
+        return $this->getStatus() == 'active';
+    }
+
+    public function isExpired()
+    {
+        return $this->getStatus() == 'expired';
+    }
 }
