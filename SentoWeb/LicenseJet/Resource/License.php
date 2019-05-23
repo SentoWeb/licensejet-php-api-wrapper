@@ -160,4 +160,9 @@ Class License extends Resource
     {
         return $this->getStatus() == 'expired';
     }
+
+    public function isSuspended()
+    {
+        return $this->getStatus() == 'suspended';
+    }
 }
