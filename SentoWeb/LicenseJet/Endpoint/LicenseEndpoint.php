@@ -88,7 +88,7 @@ Class LicenseEndpoint extends Endpoint
 
         if ($response->isSuccessful())
         {
-            License::createFromArray((array) $response->getPayload());
+            return License::createFromArray((array) $response->getPayload());
         }
 
         throw new LicenseJetException('Failed to create resource. Error: '.$response->getErrorMessage());
@@ -105,7 +105,7 @@ Class LicenseEndpoint extends Endpoint
 
         if ($response->isSuccessful())
         {
-            License::createFromArray((array) $response->getPayload());
+            return License::createFromArray((array) $response->getPayload());
         }
 
         throw new \Exception('Failed to update resource. Error: '.$response->getErrorMessage());
