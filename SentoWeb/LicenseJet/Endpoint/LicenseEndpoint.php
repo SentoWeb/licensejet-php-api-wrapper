@@ -4,7 +4,6 @@ use SentoWeb\LicenseJet\Collection\LicenseCollection;
 use SentoWeb\LicenseJet\LicenseJetException;
 use SentoWeb\LicenseJet\Resource\License;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
-use SentoWeb\LicenseJet\Response;
 
 Class LicenseEndpoint extends Endpoint
 {
@@ -49,11 +48,11 @@ Class LicenseEndpoint extends Endpoint
      * Delete a License.
      *
      * @param License $license
-     * @return Response
+     * @return bool
      */
-    public function delete(License $license) : Response
+    public function delete(License $license) : bool
     {
-        return $this->request('DELETE', 'license/'.$license->getId());
+        return $this->request('DELETE', 'license/'.$license->getId())->isSuccessful();
     }
 
     /**

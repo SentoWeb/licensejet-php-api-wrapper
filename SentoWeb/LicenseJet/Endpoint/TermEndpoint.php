@@ -16,8 +16,9 @@ Class TermEndpoint extends Endpoint {
             $this->identity,
             'terms',
             $this,
-            function ($project) {
-                return new Term((array) $project);
+            function ($term)
+            {
+                return Term::createFromArray((array) $term);
             },
             new BaseCollection()
         );

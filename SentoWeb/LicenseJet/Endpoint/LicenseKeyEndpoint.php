@@ -26,11 +26,11 @@ Class LicenseKeyEndpoint extends Endpoint {
 
     /**
      * @param LicenseKey $licenseKey
-     * @return Response
+     * @return bool
      */
-    public function delete(LicenseKey $licenseKey) : Response
+    public function delete(LicenseKey $licenseKey) : bool
     {
-        return $this->request('DELETE', 'license_key/'.$licenseKey->getId());
+        return $this->request('DELETE', 'license_key/'.$licenseKey->getId())->isSuccessful();
     }
 
     /**
