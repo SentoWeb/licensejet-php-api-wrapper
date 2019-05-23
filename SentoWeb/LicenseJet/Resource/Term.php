@@ -11,4 +11,14 @@ Class Term extends Resource
     {
         return (int) $this->getAttribute('length') ?: 1;
     }
+
+    public function getSingularName() : ?string
+    {
+        return $this->getAttribute('name.singular');
+    }
+
+    public function getPluralName() : ?string
+    {
+        return $this->getAttribute('name.plural');
+    }
 }
