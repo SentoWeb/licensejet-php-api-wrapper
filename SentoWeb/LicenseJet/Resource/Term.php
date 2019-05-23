@@ -2,9 +2,9 @@
 
 Class Term extends Resource
 {
-    public function getType() : ?string
+    public function getIdentifier() : ?string
     {
-        return $this->getAttribute('type');
+        return $this->getAttribute('identifier');
     }
 
     public function getLength() : int
@@ -20,5 +20,13 @@ Class Term extends Resource
     public function getPluralName() : ?string
     {
         return $this->getAttribute('name.plural');
+    }
+
+    public static function create(string $identifier, string $length) : Term
+    {
+        return new static([
+            'identifier' => $identifier,
+            'length' => $length
+        ]);
     }
 }

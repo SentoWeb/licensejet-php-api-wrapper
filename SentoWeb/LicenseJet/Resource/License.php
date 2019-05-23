@@ -26,10 +26,9 @@ Class License extends Resource
             return null;
         }
 
-        return (new Term())->fill([
-           'type' => $this->getAttribute('subscription_term.type'),
-           'length' => $this->getAttribute('subscription_term.length')
-        ]);
+        return Term::create(
+            $this->getAttribute('subscription_term.identifier'),
+            $this->getAttribute('subscription_term.length'));
     }
 
     public function getAccessKey() : ?string
