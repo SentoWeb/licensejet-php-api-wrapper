@@ -31,6 +31,11 @@ Class License extends Resource
             $this->getAttribute('subscription_term.length'));
     }
 
+    public function setSubscriptionTerm(Term $term) : void
+    {
+        $this->setAttribute('subscription_term', $term->toArray());
+    }
+
     public function getAccessKey() : ?string
     {
         return $this->getAttribute('access_key');
