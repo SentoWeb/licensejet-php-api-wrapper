@@ -22,7 +22,7 @@ Class Term extends Resource
         return $this->getAttribute('name.plural');
     }
 
-    public static function create(string $identifier, string $length) : Term
+    public static function create(?string $identifier, ?int $length) : Term
     {
         return new static([
             'identifier' => $identifier,
