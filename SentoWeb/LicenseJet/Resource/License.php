@@ -143,7 +143,7 @@ Class License extends Resource
 
     public function getProjectIdentifier() : ?string
     {
-        return $this->getAttribute('project.identifier');
+        return $this->getAttribute('project_identifier');
     }
 
     public function getCreatedDate() : ?DateTime
