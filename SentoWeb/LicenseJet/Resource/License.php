@@ -141,6 +141,11 @@ Class License extends Resource
         return (int) $this->getAttribute('project_id');
     }
 
+    public function getProjectIdentifier() : ?string
+    {
+        return $this->getAttribute('project.identifier');
+    }
+
     public function getCreatedDate() : ?DateTime
     {
         return $this->getDateTimeOrNull($this->getAttribute('created_date'));
