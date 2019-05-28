@@ -1,12 +1,14 @@
 <?php namespace SentoWeb\LicenseJet\Endpoint;
 
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use SentoWeb\LicenseJet\Identity;
 use SentoWeb\LicenseJet\Response;
 use SentoWeb\LicenseJet\LicenseJetException;
 
-Class Endpoint {
+Class Endpoint
+{
     public $identity;
 
     /**
@@ -50,6 +52,10 @@ Class Endpoint {
         try
         {
             return new Response($client->send($request, $options));
+        }
+        catch (ClientException $e)
+        {
+            throw new LicenseJetException('Request failed: '.$e->getResponse()->getReasonPhrase(), null, $e);
         }
         catch (\Throwable $e)
         {
