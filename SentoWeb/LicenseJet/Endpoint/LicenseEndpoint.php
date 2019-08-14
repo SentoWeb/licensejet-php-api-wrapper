@@ -44,6 +44,21 @@ Class LicenseEndpoint extends Endpoint
         throw new LicenseJetException('Failed to retrieve resource. Error: '.$response->getErrorMessage());
     }
 
+    public function renew(int $licenseId, ?string $term = null, ?int $length = null) : License
+    {
+        $response = $this->request('PUT', 'license/'.$licenseId.'/renewals', [
+            'term' => $term,
+            'length' => $length
+        ]);
+
+        if ($response->isSuccessful())
+        {
+            return License::createFromArray((array) $response->getPayload());
+        }
+
+        throw new LicenseJetException('Failed to process renewal. Error: '.$response->getErrorMessage());
+    }
+
     /**
      * Delete a License.
      *

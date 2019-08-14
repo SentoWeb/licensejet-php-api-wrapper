@@ -21,7 +21,7 @@ Class LicenseKey extends Resource
 
     public function getHost() : ?string
     {
-        return $this->getAttribute('url');
+        return $this->getAttribute('host');
     }
 
     public function setHost(?string $host)
