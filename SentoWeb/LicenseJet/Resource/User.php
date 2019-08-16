@@ -1,6 +1,7 @@
 <?php namespace SentoWeb\LicenseJet\Resource;
 
-Class User extends Resource {
+Class User extends Resource
+{
     /**
      * Get the email of the user.
      *

@@ -5,7 +5,8 @@ use SentoWeb\LicenseJet\Resource\User;
 use SentoWeb\LicenseJet\Collection\UserCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 
-Class UserEndpoint extends Endpoint {
+Class UserEndpoint extends Endpoint
+{
     /**
      * Get user by ID.
      *

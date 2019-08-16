@@ -5,7 +5,8 @@ use SentoWeb\LicenseJet\Resource\LicensingAgreement;
 use SentoWeb\LicenseJet\Collection\LicensingAgreementCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 
-Class LicensingAgreementEndpoint extends Endpoint {
+Class LicensingAgreementEndpoint extends Endpoint
+{
     /**
      * Get licensing agreements.
      *

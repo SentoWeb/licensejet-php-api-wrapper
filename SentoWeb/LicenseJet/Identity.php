@@ -15,8 +15,6 @@ Class Identity
 
     public function __construct(string $apiUrl, string $apiKey)
     {
-        // @todo: add slash
-
         $this->apiUrl = $apiUrl;
         $this->apiKey = $apiKey;
 
@@ -33,7 +31,7 @@ Class Identity
 
     public function getUrl($path = '') : string
     {
-        return $this->normalize_url($this->apiUrl.$path);
+        return $this->apiUrl.'/'.$this->normalize_url($path);
     }
 
     public function getKey() :string

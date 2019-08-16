@@ -91,6 +91,11 @@ Class License extends Resource
         $this->setAttribute('transferable', $transferable);
     }
 
+    public function isTransferReady() : bool
+    {
+        return (bool) $this->getAttribute('transfer_ready');
+    }
+
     public function getTransferableDate() : ?DateTime
     {
         return $this->getDateTimeOrNull('transferable_date');

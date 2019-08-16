@@ -53,13 +53,14 @@ Abstract class Resource
         return !empty($this->changes());
     }
 
-    // @todo
     public function changes() : array
     {
         $changes = [];
 
-        foreach ($this->attributes as $key => $value) {
-            if (!isset($this->originalAttributes[$key]) || $this->originalAttributes[$key] != $value) {
+        foreach ($this->attributes as $key => $value)
+        {
+            if (!isset($this->originalAttributes[$key]) || $this->originalAttributes[$key] != $value)
+            {
                 $changes[$key] = $value;
             }
         }
@@ -112,7 +113,7 @@ Abstract class Resource
         {
             $key = array_shift($keys);
 
-            if (! isset($array[$key]) || ! is_array($array[$key]))
+            if (!isset($array[$key]) || !is_array($array[$key]))
             {
                 $array[$key] = [];
             }
@@ -155,7 +156,8 @@ Abstract class Resource
     {
         $links = $this->getAttribute('_links', []);
 
-        if (isset($links->$name)) {
+        if (isset($links->$name))
+        {
             return $links->$name;
         }
 

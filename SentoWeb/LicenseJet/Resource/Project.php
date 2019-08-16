@@ -1,6 +1,7 @@
 <?php namespace SentoWeb\LicenseJet\Resource;
 
-Class Project extends Resource {
+Class Project extends Resource
+{
     public function getIdentifier() : ?string
     {
         return $this->getAttribute('identifier');

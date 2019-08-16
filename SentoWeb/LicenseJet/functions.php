@@ -3,7 +3,8 @@
 use SentoWeb\LicenseJet\Endpoint\ProjectEndpoint;
 use SentoWeb\LicenseJet\Identity;
 
-if (!function_exists('licensejet_get_projects')) {
+if (!function_exists('licensejet_get_projects'))
+{
     /**
      * @param $apiUrl
      * @param $licenseKey

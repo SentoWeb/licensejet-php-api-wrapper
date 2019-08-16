@@ -1,6 +1,7 @@
 <?php namespace SentoWeb\LicenseJet\Resource;
 
-Class ProjectOption extends Resource {
+Class ProjectOption extends Resource
+{
     public function getName() : ?string
     {
         return $this->getAttribute('name');

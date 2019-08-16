@@ -6,7 +6,8 @@ use SentoWeb\LicenseJet\Resource\LicenseKey;
 Use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 use SentoWeb\LicenseJet\Response;
 
-Class LicenseKeyEndpoint extends Endpoint {
+Class LicenseKeyEndpoint extends Endpoint
+{
     /**
      * @param $licenseKeyId
      * @return LicenseKey

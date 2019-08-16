@@ -5,7 +5,8 @@ use SentoWeb\LicenseJet\Resource\Project;
 use SentoWeb\LicenseJet\Collection\ProjectCollection;
 use SentoWeb\LicenseJet\RequestBuilder\CollectionRequestBuilder;
 
-Class ProjectEndpoint extends Endpoint {
+Class ProjectEndpoint extends Endpoint
+{
     /**
      * @return CollectionRequestBuilder
      */
