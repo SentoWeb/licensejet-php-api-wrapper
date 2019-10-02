@@ -34,7 +34,7 @@ Class LicensingAgreementEndpoint extends Endpoint
      */
     public function get(int $licensingAgreementId) : LicensingAgreement
     {
-        $response = $this->request('GET', 'licensing_agreement/'.$licensingAgreementId, []);
+        $response = $this->request('GET', 'licensing_agreements/'.$licensingAgreementId, []);
 
         if ($response->isSuccessful())
         {
@@ -55,7 +55,7 @@ Class LicensingAgreementEndpoint extends Endpoint
     {
         $response = $this->request(
             'POST',
-            'licensing_agreement/'.$licensingAgreement->getId(),
+            'licensing_agreements/'.$licensingAgreement->getId(),
             $licensingAgreement->toArray()
         );
 

@@ -51,11 +51,37 @@ Class CollectionIterator implements \Iterator
         $this->data = null;
     }
 
+    /**
+     * Return all items in the collection.
+     *
+     * @return array|null
+     */
+    public function all() : ?array
+    {
+        $data = $this->requestBuilder
+            ->page($this->page)
+            ->limit(-1)
+            ->get($this->params);
+
+        if ($data instanceof BaseCollection)
+        {
+            return $data->get();
+        }
+
+        return null;
+    }
+
+    public function entries() : ?array
+    {
+        return $this->getData();
+    }
+
     public function rewind()
     {
         $this->position = 0;
 
-        if ($this->page != 1) {
+        if ($this->page != 1)
+        {
             $this->resetData();
         }
 
@@ -71,11 +97,14 @@ Class CollectionIterator implements \Iterator
 
     public function next()
     {
-        if ($this->position == $this->limit - 1) {
+        if ($this->position == $this->limit - 1)
+        {
             $this->page++;
             $this->position = 0;
             $this->resetData();
-        } else {
+        }
+        else
+        {
             $this->position++;
         }
     }

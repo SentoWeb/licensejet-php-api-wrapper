@@ -16,7 +16,7 @@ Class UserEndpoint extends Endpoint
      */
     public function get($userId) : User
     {
-        $response = $this->request('GET', 'user/'.$userId);
+        $response = $this->request('GET', 'users/'.$userId);
 
         if ($response->isSuccessful())
         {
@@ -49,13 +49,13 @@ Class UserEndpoint extends Endpoint
      */
     public function create(User $user) : User
     {
-        $response = $this->request('GET', 'users', $user->toArray());
+        $response = $this->request('POST', 'users', $user->toArray());
 
         if ($response->isSuccessful())
         {
             return User::createFromArray((array) $response->getPayload());
         }
 
-        throw new LicenseJetException('Failed to update resource. Error: '.$response->getErrorMessage());
+        throw new LicenseJetException('Failed to create resource. Error: '.$response->getErrorMessage());
     }
 }

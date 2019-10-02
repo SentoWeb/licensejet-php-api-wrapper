@@ -42,7 +42,7 @@ Class Endpoint
 
         if ($method == 'POST' && !empty($queryParams))
         {
-            $options[RequestOptions::FORM_PARAMS] = $queryParams;
+            $options[RequestOptions::JSON] = $queryParams;
         }
         elseif (!empty($queryParams))
         {
@@ -61,5 +61,24 @@ Class Endpoint
         {
             throw new LicenseJetException('Request failed. Error: '.$e->getMessage(), null, $e);
         }
+    }
+
+    /**
+     * @return array|null
+     * @throws LicenseJetException
+     */
+    public function permissions() : ?array
+    {
+        if ($apiRoot = $this->request('GET', ''))
+        {
+            $payload = $apiRoot->getPayload();
+
+            if (isset($payload['permissions']) && is_array($payload['permissions']))
+            {
+                return $payload['permissions'];
+            }
+        }
+
+        return null;
     }
 }

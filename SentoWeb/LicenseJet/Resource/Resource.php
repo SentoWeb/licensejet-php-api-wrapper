@@ -100,28 +100,25 @@ Abstract class Resource
         return $array;
     }
 
-    public function dotSet(array &$array, string $key, $value) : array
+    public function dotSet(array $array, string $key, $value) : array
     {
-        if (is_null($key))
-        {
-            return $array = $value;
-        }
-
         $keys = explode('.', $key);
+        $processed = 0;
+        $data = &$array;
 
-        while (count($keys) > 1)
+        foreach ($keys as $key)
         {
-            $key = array_shift($keys);
+            $processed++;
 
-            if (!isset($array[$key]) || !is_array($array[$key]))
+            if (!isset($data[$key]) || !is_array($data[$key]))
             {
-                $array[$key] = [];
+                $data[$key] = [];
             }
 
-            $array = &$array[$key];
+            $data = &$data[$key];
         }
 
-        $array[array_shift($keys)] = $value;
+        $data = $value;
 
         return $array;
     }

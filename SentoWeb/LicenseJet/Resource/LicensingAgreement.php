@@ -77,6 +77,29 @@ Class LicensingAgreement extends Resource
         );
     }
 
+    public function getUpdateAccessRestrictions() : ?array
+    {
+        if (!is_array($this->getAttribute('update_access_restrictions')))
+        {
+            return null;
+        }
+
+        return $this->getAttribute('update_access_restrictions');
+    }
+
+    public function getUpdateAccessExpirationTerm() : ?Term
+    {
+        return Term::create(
+            $this->getAttribute('update_access_expiration_term.identifier'),
+            $this->getAttribute('update_access_expiration_term.length')
+        );
+    }
+
+    public function getUpdateAccessExpirationVersion() : ?string
+    {
+        return $this->getAttribute('update_access_expiration_version');
+    }
+
     public function getTransferRestrictionTerm() : ?Term
     {
         if (!$this->isSubscription())

@@ -49,6 +49,16 @@ Class LicenseKey extends Resource
         return $this->getAttribute('status_name');
     }
 
+    public function getSuspensionReason() : ?string
+    {
+        return $this->getAttribute('suspension_reason');
+    }
+
+    public function getSuspensionExpirationDate() : ?DateTime
+    {
+        return $this->getDateTimeOrNull($this->getAttribute('suspension_expiration_date'));
+    }
+
     /**
      * @return DateTime|null
      */

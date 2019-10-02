@@ -15,14 +15,14 @@ Class LicenseKeyEndpoint extends Endpoint
      */
     public function get(int $licenseKeyId) : LicenseKey
     {
-        $response = $this->request('GET', 'license_key/'.$licenseKeyId, []);
+        $response = $this->request('GET', 'license_keys/'.$licenseKeyId, []);
 
         if ($response->isSuccessful())
         {
             return LicenseKey::createFromArray((array) $response->getPayload());
         }
 
-        throw new LicenseJetException('Failed to retrieve resource. Error: '.$response->getErrorMessage());;
+        throw new LicenseJetException('Failed to retrieve resource. Error: '.$response->getErrorMessage());
     }
 
     /**
@@ -31,7 +31,7 @@ Class LicenseKeyEndpoint extends Endpoint
      */
     public function delete(LicenseKey $licenseKey) : bool
     {
-        return $this->request('DELETE', 'license_key/'.$licenseKey->getId())->isSuccessful();
+        return $this->request('DELETE', 'license_keys/'.$licenseKey->getKey())->isSuccessful();
     }
 
     /**

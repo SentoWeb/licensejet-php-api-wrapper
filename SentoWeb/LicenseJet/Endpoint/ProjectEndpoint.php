@@ -30,7 +30,7 @@ Class ProjectEndpoint extends Endpoint
      */
     public function get(int $projectId) : Project
     {
-        $response = $this->request('GET', 'project/'.$projectId, []);
+        $response = $this->request('GET', 'projects/'.$projectId, []);
 
         if ($response->isSuccessful())
         {

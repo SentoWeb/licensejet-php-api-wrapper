@@ -76,9 +76,16 @@ Class License extends Resource
         return $this->getDateTimeOrNull($this->getAttribute('expiration_date'));
     }
 
-    public function setExpirationDate(DateTime $dateTime) : void
+    public function setExpirationDate(?DateTime $dateTime) : void
     {
-        $this->setAttribute('expiration_date', $dateTime->format(static::DATETIME_FORMAT));
+        if ($dateTime)
+        {
+            $this->setAttribute('expiration_date', $dateTime->format(static::DATETIME_FORMAT));
+        }
+        else
+        {
+            $this->setAttribute('expiration_date', null);
+        }
     }
 
     public function isTansferable() : bool
@@ -98,7 +105,7 @@ Class License extends Resource
 
     public function getTransferableDate() : ?DateTime
     {
-        return $this->getDateTimeOrNull('transferable_date');
+        return $this->getDateTimeOrNull($this->getAttribute('transferable_date'));
     }
 
     public function setTransferableDate(DateTime $dateTime) : void
@@ -154,6 +161,71 @@ Class License extends Resource
     public function getCreatedDate() : ?DateTime
     {
         return $this->getDateTimeOrNull($this->getAttribute('created_date'));
+    }
+
+    public function getUpdateAccessRestrictions() : ?array
+    {
+        if (!is_array($this->getAttribute('update_access_restrictions')))
+        {
+            return null;
+        }
+
+        return $this->getAttribute('update_access_restrictions');
+    }
+
+    public function setUpdateAccessRestrictions(?array $restrictions)
+    {
+        $this->setAttribute('update_access_restrictions', $restrictions);
+    }
+
+    public function getUpdateAccessExpirationDate() : ?DateTime
+    {
+        return $this->getDateTimeOrNull($this->getAttribute('update_access_expiration_date'));
+    }
+
+    public function setUpdateAccessExpirationDate(?DateTime $dateTime)
+    {
+        if ($dateTime)
+        {
+            $this->setAttribute('update_access_expiration_date', $dateTime->format(static::DATETIME_FORMAT));
+        }
+        else
+        {
+            $this->setAttribute('update_access_expiration_date', null);
+        }
+    }
+
+    public function getUpdateAccessExpirationTerm() : ?Term
+    {
+        return Term::create(
+            $this->getAttribute('update_access_expiration_term.identifier'),
+            $this->getAttribute('update_access_expiration_term.length'));
+    }
+
+    public function setUpdateAccessExpirationTerm(Term $updateAccessExpirationTerm) : void
+    {
+        $this->setAttribute('update_access_expiration_term.identifier', $updateAccessExpirationTerm->getIdentifier());
+        $this->setAttribute('update_access_expiration_term.length', $updateAccessExpirationTerm->getLength());
+    }
+
+    public function getUpdateAccessExpirationVersion() : ?string
+    {
+        return $this->getAttribute('update_access_expiration_version');
+    }
+
+    public function setUpdateAccessExpirationVersion(?string $version)
+    {
+        $this->setAttribute('update_access_expiration_version', $version);
+    }
+
+    public function getSuspensionExpirationDate() : ?DateTime
+    {
+        return $this->getDateTimeOrNull($this->getAttribute('suspension_expiration_date'));
+    }
+
+    public function getSuspensionReason() : ?string
+    {
+        return $this->getAttribute('suspension_reason');
     }
 
     public function isSubscription() : bool

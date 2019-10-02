@@ -7,9 +7,24 @@ Class Term extends Resource
         return $this->getAttribute('identifier');
     }
 
-    public function getLength() : int
+    public function getLength() : ?int
     {
-        return (int) $this->getAttribute('length') ?: 1;
+        return $this->getAttribute('length');
+    }
+
+    public function getEstimatedMinutes() : ?int
+    {
+        return $this->getAttribute('length_estimate.minutes');
+    }
+
+    public function getEstimatedHours() : ?int
+    {
+        return $this->getAttribute('length_estimate.hours');
+    }
+
+    public function getEstimatedDays() : ?int
+    {
+        return $this->getAttribute('length_estimate.days');
     }
 
     public function getSingularName() : ?string
