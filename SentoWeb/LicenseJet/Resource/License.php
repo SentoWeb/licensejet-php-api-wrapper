@@ -128,19 +128,19 @@ Class License extends Resource
         $this->setAttribute('user_id', $userId);
     }
 
-    public function getLicensingAgreementId() : ?int
+    public function getLicensingPlanId() : ?int
     {
-        if (is_null($this->getAttribute('licensing_agreement_id')))
+        if (is_null($this->getAttribute('licensing_plan_id')))
         {
             return null;
         }
 
-        return (int) $this->getAttribute('licensing_agreement_id');
+        return (int) $this->getAttribute('licensing_plan_id');
     }
 
-    public function setLicensingAgreementId(int $licensingAgreementId) : void
+    public function setLicensingPlanId(int $licensingPlanId) : void
     {
-        $this->setAttribute('licensing_agreement_id', $licensingAgreementId);
+        $this->setAttribute('licensing_plan_id', $licensingPlanId);
     }
 
     public function getProjectId() : ?int

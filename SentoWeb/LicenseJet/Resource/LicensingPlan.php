@@ -2,7 +2,7 @@
 
 use DateTime;
 
-Class LicensingAgreement extends Resource
+Class LicensingPlan extends Resource
 {
     /**
      * Get unique identifier

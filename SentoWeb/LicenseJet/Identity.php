@@ -7,6 +7,8 @@ Class Identity
     protected $apiUrl;
 
     protected $apiKey;
+    
+    protected $clientTimeout = 10;
 
     /**
      * @var Client
@@ -17,16 +19,17 @@ Class Identity
     {
         $this->apiUrl = $apiUrl;
         $this->apiKey = $apiKey;
-
-        // GuzzleHttp client
-        $this->client = new Client([
-            'base_uri' => $this->apiUrl
-        ]);
     }
 
     public function client() : Client
     {
-        return $this->client;
+        return new Client([
+            'base_uri' => $this->apiUrl,
+            'timeout' => $this->getClientTimeout(),
+            'headers' => [
+                'Authorization' => 'APIKEY '.$this->apiKey
+            ]
+        ]);
     }
 
     public function getUrl($path = '') : string
@@ -38,7 +41,7 @@ Class Identity
     {
         return $this->apiKey;
     }
-
+    
     protected function normalize_url(string $url) : string
     {
         while (strpos($url, "//") !== false)
@@ -48,4 +51,21 @@ Class Identity
 
         return $url;
     }
+
+    /**
+     * @return int
+     */
+    public function getClientTimeout(): int
+    {
+        return $this->clientTimeout;
+    }
+
+    /**
+     * @param int $clientTimeout
+     */
+    public function setClientTimeout(int $clientTimeout)
+    {
+        $this->clientTimeout = $clientTimeout;
+    }
+
 }
